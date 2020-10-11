@@ -47,7 +47,7 @@ def main():
     cap_width = args.width
     cap_height = args.height
     fps = args.fps
-    frame_skip = args.frame_skip
+    skip_frame = args.skip_frame
 
     model_path = args.model
     score_th = args.score_th
@@ -68,7 +68,7 @@ def main():
     inference_func = loaded_model.signatures[DEFAULT_FUNCTION_KEY]
 
     # ラベル読み込み ###########################################################
-    with open('setting/labels.csv') as f:
+    with open('setting/labels.csv', encoding='utf8') as f:
         labels = csv.reader(f)
         labels = [row for row in labels]
 
@@ -83,7 +83,7 @@ def main():
         debug_image = copy.deepcopy(frame)
 
         frame_count += 1
-        if (frame_count % (frame_skip + 1)) != 0:
+        if (frame_count % (skip_frame + 1)) != 0:
             continue
 
         # 検出実施 #############################################################
